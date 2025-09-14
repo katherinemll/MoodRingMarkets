@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoodRing Markets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Syne&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 🔔 Chime -->
+  <audio id="chime" src="chime.mp3" preload="auto"></audio>
+
+  <!-- 🌈 Preloader -->
+  <div id="preloader">
+    <div id="date-time"></div>
+    <div id="spinner">
+      <img src="moodring.png" alt="MoodRing Spinner">
+    </div>
+    <div class="loading-text">Detecting Market Emotions...</div>
+  </div>
+
+  <!-- 🚀 Welcome Page -->
+  <div id="welcome-screen">
+    <div class="welcome-container">
+      <h1>Welcome to MoodRing Markets</h1>
+      <p class="copilot-tagline">Your emotional trading copilot awaits…</p>
+      <div class="scroll-indicator">
+        <div class="scroll-arrow">↓</div>
+        <p>Scroll to explore market sentiment</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📊 Stocks Dashboard -->
+  <div id="stocks-dashboard">
+    <div class="dashboard-header">
+      <h2>Market Sentiment Analysis</h2>
+      <p class="dashboard-subtitle">Top 10 Most Discussed Stocks</p>
+    </div>
+    
+    <div id="stocks-container">
+      <!-- Stocks will be dynamically loaded here -->
+    </div>
+    
+    <div class="refresh-section">
+      <button id="refresh-btn" class="refresh-button">
+        <span class="refresh-icon">⟳</span>
+        Refresh Data
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

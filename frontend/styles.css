@@ -1,0 +1,489 @@
+/* 🌌 Global Background */
+body {
+  margin: 0;
+  padding: 0;
+  background: #0e0f1a;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/* 🔮 Preloader */
+#preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #0f111a, #1a1a2e);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 1s ease-in-out;
+}
+
+/* 🌀 Spinner Image */
+#spinner img {
+  width: 140px;
+  animation: spin 3s linear infinite;
+  filter: drop-shadow(0 0 28px rgba(118, 223, 255, 0.6)) drop-shadow(0 0 48px rgba(118, 223, 255, 0.3));
+}
+
+/* 🕰️ Date-Time */
+#date-time {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 18px;
+  border-radius: 14px;
+  color: #88aabb;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 18px rgba(118, 223, 255, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* 💬 Loading Message */
+.loading-text {
+  font-size: 1.3rem;
+  font-family: 'Orbitron', sans-serif;
+  color: #78f0f5;
+  margin-top: 1.7rem;
+  letter-spacing: 1.2px;
+  animation: flicker 2s infinite;
+  text-shadow: 0 0 6px #78f0f5, 0 0 14px #78f0f5;
+}
+
+/* ✨ Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🚀 Welcome Screen */
+#welcome-screen {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  background: #0e0f1a;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* padding-left: 8%; */
+  position: relative;
+}
+
+.welcome-container {
+  animation: fadeInUp 1.2s ease-in-out;
+}
+
+#welcome-screen h1 {
+  font-size: 4rem;
+  font-family: 'Syne', sans-serif;
+  text-shadow: 0 0 12px #7df9ff88;
+  margin: 0;
+}
+
+.copilot-tagline {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  color: #78f0f5;
+  margin-top: 1rem;
+  text-shadow: 0 0 6px #78f0f5, 0 0 14px #78f0f5;
+  letter-spacing: 1px;
+}
+
+/* 📜 Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  animation: bounce 2s infinite;
+}
+
+.scroll-arrow {
+  font-size: 2rem;
+  color: #78f0f5;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px #78f0f5;
+}
+
+.scroll-indicator p {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  color: #88aabb;
+  margin: 0;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* 📊 Stocks Dashboard */
+#stocks-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0e0f1a, #1a1a2e);
+  padding: 4rem 8% 2rem;
+  display: block;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-in-out;
+}
+
+#stocks-dashboard.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.dashboard-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 0 12px #7df9ff88;
+}
+
+.dashboard-subtitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #78f0f5;
+  margin: 0;
+  text-shadow: 0 0 6px #78f0f5;
+  letter-spacing: 1px;
+}
+
+/* 🎯 Stock Cards */
+#stocks-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.stock-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(118, 223, 255, 0.1);
+  border-radius: 25px;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.stock-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(118, 223, 255, 0.4);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(118, 223, 255, 0.15);
+}
+
+.stock-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(118, 223, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.stock-card:hover::before {
+  left: 100%;
+}
+
+/* 🎨 Mood Ring - FOCAL POINT */
+.mood-ring-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 4rem;
+  min-width: 180px;
+  position: relative;
+}
+
+.ticker-symbol {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2.6rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1.8rem;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  letter-spacing: 3px;
+}
+
+.mood-ring {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 1.5rem;
+  transition: all 0.4s ease;
+  border: 6px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mood-ring:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 80px rgba(0, 0, 0, 1);
+}
+
+.mood-ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #0e0f1a;
+  z-index: 2;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.sentiment-score {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #78f0f5;
+  text-shadow: 0 0 15px #78f0f5, 0 0 30px #78f0f5;
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+.sentiment-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  color: #88aabb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.3rem;
+  text-shadow: 0 0 6px rgba(136, 170, 187, 0.3);
+}
+
+/* 📈 Stock Info - Enhanced Visual Hierarchy */
+.stock-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
+  padding-left: 1rem;
+}
+
+.company-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.price-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+
+.current-price {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+}
+
+.price-change {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-shadow: 0 0 8px currentColor;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-change.positive {
+  color: #4ade80;
+}
+
+.price-change.negative {
+  color: #f87171;
+}
+
+.price-change::before {
+  content: '';
+  font-size: 1.2rem;
+}
+
+.price-change.positive::before {
+  content: '↗';
+}
+
+.price-change.negative::before {
+  content: '↘';
+}
+
+.price-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  color: #88aabb;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 0 6px rgba(136, 170, 187, 0.3);
+}
+
+/* 🔄 Refresh Section */
+.refresh-section {
+  text-align: center;
+  margin-top: 4rem;
+  padding-bottom: 2rem;
+}
+
+.refresh-button {
+  background: rgba(118, 223, 255, 0.1);
+  border: 2px solid rgba(118, 223, 255, 0.3);
+  border-radius: 15px;
+  padding: 1rem 2rem;
+  color: #78f0f5;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-shadow: 0 0 6px #78f0f5;
+}
+
+.refresh-button:hover {
+  background: rgba(118, 223, 255, 0.2);
+  border-color: rgba(118, 223, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(118, 223, 255, 0.2);
+}
+
+.refresh-icon {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.refresh-button:hover .refresh-icon {
+  transform: rotate(180deg);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .stock-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    min-height: auto;
+  }
+  
+  .mood-ring-container {
+    margin-right: 0;
+    margin-bottom: 2rem;
+  }
+  
+  .mood-ring {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .mood-ring::before {
+    width: 85px;
+    height: 85px;
+  }
+  
+  .sentiment-score {
+    font-size: 1.5rem;
+  }
+  
+  .ticker-symbol {
+    font-size: 1.8rem;
+  }
+  
+  .company-name {
+    font-size: 1.6rem;
+  }
+  
+  .current-price {
+    font-size: 2rem;
+  }
+  
+  .price-change {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  .price-row {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 2rem;
+  }
+  
+  #welcome-screen h1 {
+    font-size: 2.5rem;
+  }
+}
