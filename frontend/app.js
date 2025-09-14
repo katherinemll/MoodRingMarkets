@@ -97,7 +97,7 @@ function createMoodRing(sentimentScore) {
 // API functions
 async function fetchStocks() {
   try {
-    const response = await fetch('/api/stocks');
+    const response = await fetch('http://localhost:5002/api/stocks');
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
@@ -108,7 +108,7 @@ async function fetchStocks() {
 
 async function fetchStockDetails(symbol) {
   try {
-    const response = await fetch(`/api/stocks/${symbol}`);
+    const response = await fetch(`http://localhost:5002/api/stocks/${symbol}`);
     const data = await response.json();
     return data.success ? data.data : null;
   } catch (error) {
