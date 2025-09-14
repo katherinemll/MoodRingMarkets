@@ -1,0 +1,31 @@
+{
+  "name": "hackmit",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "mcp-scraper": "./mcp-scraper.js"
+  },
+  "scripts": {
+    "start": "node ./mcp-scraper.js",
+    "api": "node ./web/api-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape:file": "node ./scripts/scrape_from_file.js",
+    "llm:extract": "node ./scripts/llm_extract_from_file.js",
+    "urls:generate": "node ./scripts/generate_urls_with_claude.js",
+    "sentiment:market": "node ./scripts/market_sentiment_csv.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.62.0",
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "rss-parser": "^3.13.0",
+    "undici": "^7.16.0",
+    "zod": "^3.25.76"
+  }
+}
