@@ -96,6 +96,8 @@ body {
 
 .welcome-container {
   animation: fadeInUp 1.2s ease-in-out;
+  position: relative;
+  z-index: 2;
 }
 
 #welcome-screen h1 {
@@ -103,6 +105,25 @@ body {
   font-family: 'Syne', sans-serif;
   text-shadow: 0 0 12px #7df9ff88;
   margin: 0;
+}
+
+/* 🌈 Centered Spinning Logo on Welcome Screen */
+.welcome-logo {
+  position: absolute;
+  top: 50%;
+  right: 8vw;
+  transform: translateY(-60%);
+  opacity: 1;
+  animation: spin 3s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.welcome-logo img {
+  width: min(60vmin, 600px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 28px rgba(118, 223, 255, 0.6)) drop-shadow(0 0 48px rgba(118, 223, 255, 0.3));
 }
 
 .copilot-tagline {
@@ -118,7 +139,7 @@ body {
 .scroll-indicator {
   position: absolute;
   bottom: 5%;
-  left: 50%;
+  left: 50vw;
   transform: translateX(-50%);
   text-align: center;
   animation: bounce 2s infinite;

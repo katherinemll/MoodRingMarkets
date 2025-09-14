@@ -118,6 +118,22 @@ async function fetchStockDetails(symbol) {
 }
 
 // UI functions
+function alignWelcomeLogoToTitleBaseline() {
+  const screen = document.getElementById('welcome-screen');
+  if (!screen) return;
+  const title = screen.querySelector('h1');
+  const logo = screen.querySelector('.welcome-logo');
+  if (!title || !logo) return;
+
+  const titleRect = title.getBoundingClientRect();
+  const screenRect = screen.getBoundingClientRect();
+  // Align the logo's center to the title's visual center
+  const centerYViewport = titleRect.top + titleRect.height / 2;
+  const centerYWithinScreen = centerYViewport - screenRect.top;
+
+  logo.style.top = `${centerYWithinScreen}px`;
+  logo.style.transform = 'translateY(-50%)';
+}
 function createStockCard(stock) {
   const moodRingSvg = createMoodRing(stock.sentimentScore);
   const priceChangeClass = stock.priceChange >= 0 ? 'positive' : 'negative';
@@ -270,6 +286,8 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       if (preloader) preloader.style.display = "none";
       if (welcome) welcome.style.display = "flex";
+      // Align logo to title baseline once visible
+      requestAnimationFrame(() => alignWelcomeLogoToTitleBaseline());
     }, 1000);
   }, 3000);
 });
@@ -283,4 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (refreshBtn) {
     refreshBtn.addEventListener('click', loadStocks);
   }
+  // Re-align on resize
+  window.addEventListener('resize', alignWelcomeLogoToTitleBaseline);
 });
