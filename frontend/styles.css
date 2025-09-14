@@ -195,7 +195,7 @@ body {
 
 .stock-card {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(118, 223, 255, 0.1);
   border-radius: 25px;
@@ -239,6 +239,7 @@ body {
   margin-right: 4rem;
   min-width: 220px;
   position: relative;
+  align-self: center;
 }
 
 .ticker-symbol {
@@ -303,9 +304,9 @@ body {
 .stock-info {
   flex: 1;
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   padding-left: 1rem;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .stock-details {
@@ -313,7 +314,7 @@ body {
   min-width: 280px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.2rem;
 }
 
@@ -322,7 +323,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  max-height: 180px;
+  align-self: stretch;
 }
 
 .ai-summary-label {
@@ -344,7 +345,8 @@ body {
   line-height: 1.6;
   color: #c8d0d8;
   overflow-y: auto;
-  max-height: 140px;
+  max-height: none;
+  flex: 1;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
   user-select: text;
@@ -382,6 +384,10 @@ body {
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
   font-weight: 600;
   line-height: 1.2;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 .price-info {
