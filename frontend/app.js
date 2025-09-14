@@ -13,23 +13,85 @@ function formatPriceChange(change, percent) {
 }
 
 function getSentimentColor(score) {
-  // Convert 0-100 score to HSL color (red to green)
-  const hue = (score / 100) * 120; // 0 = red, 120 = green
-  return `hsl(${hue}, 70%, 50%)`;
+  // Convert 0-100 score to a color on the red→yellow→green spectrum
+  const percentage = Math.max(0, Math.min(100, score)) / 100;
+  
+  let r, g, b;
+  
+  if (percentage < 0.5) {
+    // Red to Yellow (0-50%)
+    const factor = percentage * 2; // 0 to 1
+    r = 255;
+    g = Math.round(68 + (221 - 68) * factor); // 68 to 221 (from #ff4444 to #ffdd44)
+    b = 68;
+  } else {
+    // Yellow to Green (50-100%)
+    const factor = (percentage - 0.5) * 2; // 0 to 1
+    r = Math.round(255 - (255 - 68) * factor); // 255 to 68 (from #ffdd44 to #44ff44)
+    g = Math.round(221 + (255 - 221) * factor); // 221 to 255
+    b = 68;
+  }
+  
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
 function createMoodRing(sentimentScore) {
-  const color = getSentimentColor(sentimentScore);
-  const percentage = sentimentScore;
-  const degrees = (percentage / 100) * 360;
+  const percentage = Math.max(0, Math.min(100, sentimentScore)); // Clamp between 0-100
+  const circumference = 2 * Math.PI * 85; // radius = 85 for 220px outer diameter
+  const strokeDasharray = circumference;
+  const strokeDashoffset = circumference - (percentage / 100) * circumference;
   
-  // Create a proper conic gradient that fills the ring
-  const gradient = `conic-gradient(from 0deg, ${color} 0deg, ${color} ${degrees}deg, rgba(255,255,255,0.1) ${degrees}deg, rgba(255,255,255,0.1) 360deg)`;
+  // Get the solid color based on sentiment score position on the spectrum
+  const fillColor = getSentimentColor(sentimentScore);
   
-  return {
-    background: gradient,
-    boxShadow: `0 0 30px ${color}60`
-  };
+  return `
+    <svg class="mood-ring-svg" width="220" height="220" viewBox="0 0 220 220">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Background ring -->
+      <circle
+        cx="110"
+        cy="110"
+        r="85"
+        fill="none"
+        stroke="rgba(255,255,255,0.1)"
+        stroke-width="20"
+      />
+      
+      <!-- Progress ring with solid color based on sentiment -->
+      <circle
+        cx="110"
+        cy="110"
+        r="85"
+        fill="none"
+        stroke="${fillColor}"
+        stroke-width="20"
+        stroke-linecap="round"
+        stroke-dasharray="${strokeDasharray}"
+        stroke-dashoffset="${strokeDashoffset}"
+        transform="rotate(-90 110 110)"
+        filter="url(#glow)"
+        style="transition: stroke-dashoffset 0.5s ease-in-out;"
+      />
+      
+      <!-- Inner circle background -->
+      <circle
+        cx="110"
+        cy="110"
+        r="75"
+        fill="#0e0f1a"
+        style="box-shadow: inset 0 0 20px rgba(0,0,0,0.8);"
+      />
+    </svg>
+  `;
 }
 
 // API functions
@@ -57,7 +119,7 @@ async function fetchStockDetails(symbol) {
 
 // UI functions
 function createStockCard(stock) {
-  const moodRing = createMoodRing(stock.sentimentScore);
+  const moodRingSvg = createMoodRing(stock.sentimentScore);
   const priceChangeClass = stock.priceChange >= 0 ? 'positive' : 'negative';
   const sentimentLabel = getSentimentLabel(stock.sentimentScore);
   
@@ -65,20 +127,27 @@ function createStockCard(stock) {
     <div class="stock-card" data-symbol="${stock.symbol}">
       <div class="mood-ring-container">
         <div class="ticker-symbol">${stock.symbol}</div>
-        <div class="mood-ring" style="background: ${moodRing.background}; box-shadow: ${moodRing.boxShadow};">
+        <div class="mood-ring">
+          ${moodRingSvg}
           <div class="sentiment-score">${stock.sentimentScore}</div>
         </div>
         <div class="sentiment-label">${sentimentLabel}</div>
       </div>
       <div class="stock-info">
-        <h3 class="company-name">${stock.companyName}</h3>
-        <div class="price-info">
-          <div class="price-label">Current Price</div>
-          <div class="price-row">
-            <span class="current-price">${formatPrice(stock.currentPrice)}</span>
-            <span class="price-change ${priceChangeClass}">
+        <div class="stock-details">
+          <h3 class="company-name">${stock.companyName}</h3>
+          <div class="price-info">
+            <div class="price-label">Current Price</div>
+            <div class="current-price">${formatPrice(stock.currentPrice)}</div>
+            <div class="price-change ${priceChangeClass}">
               ${formatPriceChange(stock.priceChange, stock.priceChangePercent)}
-            </span>
+            </div>
+          </div>
+        </div>
+        <div class="ai-summary-container">
+          <div class="ai-summary-label">AI Analysis</div>
+          <div class="ai-summary-content">
+            ${stock.sentimentSummary || 'Analysis pending...'}
           </div>
         </div>
       </div>
