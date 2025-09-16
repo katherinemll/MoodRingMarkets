@@ -1,12 +1,10 @@
 # Stock Sentiment Dashboard
 *Authors*: Han, Coco, Katherine, Diana
+
 *Price*: Best Beginner Track
 
-<a href="https://www.youtube.com/watch?v=JcW08ssyzs8">
-  <video src="front_end/demo.mp4" controls loop muted playsinline style="max-width:100%; height:auto;">
-    Your browser does not support the video tag.
-  </video>
-</a>
+[![Watch the demo](front_end/demo.gif)](https://www.youtube.com/watch?v=JcW08ssyzs8)
+
 
 
 ## Inspiration
