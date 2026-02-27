@@ -28,7 +28,7 @@ Users can expand cards to view detailed news sentiment breakdowns, social engage
 
 ## Individual Contributions
 - **Coco & Han:** Back-end development – web scraping, LLM integration, data processing (raw data to CSV)
-- **Katherine:** Front-end website development and user interface
+- **Katherine:** Front-end website development, UIUX, pitching
 - **Diana:** Visual design and user experience
 
 ## Challenges We Ran Into
