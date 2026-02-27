@@ -1,7 +1,7 @@
 # Stock Sentiment Dashboard
 *Authors*: Han, Coco, Katherine, Diana
 
-*Price*: Best Beginner Track
+*Prize*: Best Beginner Grand Prize
 
 
 [![Watch the demo](front_end/demo.gif)](https://www.youtube.com/watch?v=JcW08ssyzs8)
